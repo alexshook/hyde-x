@@ -5,22 +5,13 @@
     {{ range $paginator.Pages }}
     <div class="post">
       <h1 class="post-title">
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <a href="{{ .Permalink }}">{{ .Title }} {{if .Description }} · {{ .Description }}{{ end }}</a>
       </h1>
       <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}{{ if not .Site.Params.hideReadingTime }} &middot; {{ .ReadingTime }} minute read{{ end }}{{ if .Site.DisqusShortname }} &middot; <a href="{{ .Permalink }}#disqus_thread">Comments</a>{{ end }}
       {{ if isset .Params "categories" }}
       <br/>
       {{ range .Params.categories }}<a class="label" href="{{ "/categories/" | absURL }}{{ . | urlize }}">{{ . }}</a>{{ end }}
       {{ end }}</span>
-      {{ if eq .Site.Params.truncate false }}
-      {{ .Content }}
-      {{ else if .Description }}
-      <p>{{ .Description }}</p>
-      <a href="{{ .Permalink }}">Read On &rarr;</a>
-      {{ else }}
-      {{ .Summary }}
-      {{ if .Truncated }}<a href="{{ .Permalink }}">Read On &rarr;</a>{{ end }}
-      {{ end }}
     </div>
     {{ end }}
     {{ template "_internal/pagination.html" . }}

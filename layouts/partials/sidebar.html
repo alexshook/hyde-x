@@ -5,15 +5,22 @@
         <img src="https://www.gravatar.com/avatar/{{ .Site.Params.gravatarHash }}?s=200"
              alt="gravatar" title="{{ .Site.Author.name }}">
       {{ end }}
-      <h1>{{ .Site.Author.name }}</h1>
+      <h1><a href="{{ "/" | absURL }}">{{ .Site.Author.name }}</a></h1>
       {{ with .Site.Params.tagline }}<p class="lead">{{ . | markdownify }}</p>{{ end }}
     </div>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-item"><a href="{{ "/" | absURL }}">{{ if isset .Site.Params "home"}}{{ .Site.Params.home }}{{ else }}Blog{{ end }}</a></li>
+      <!-- <li class="sidebar-nav-item"><a href="{{ "/" | absURL }}">{{ if isset .Site.Params "home"}}{{ .Site.Params.home }}{{ else }}Blog{{ end }}</a></li> -->
       {{ range .Site.Menus.main }}
       <li class="sidebar-nav-item">{{ .Pre }}<a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
       {{end}}
+    </ul>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        {{ with .Site.Params.about }}<a href="{{ . }}">About</a>{{ end }} ·
+        {{ with .Site.Params.projects }}<a href="{{ . }}">Projects</a>{{ end }}
+      </li>
     </ul>
 
     <ul class="sidebar-nav">
